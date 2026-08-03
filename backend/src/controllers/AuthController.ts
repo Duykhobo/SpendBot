@@ -5,7 +5,7 @@ import userService from '../services/UserService';
 export class AuthController {
   async login(req: Request, res: Response) {
     try {
-      const { initData } = req.body;
+      const telegramUser = req.body;
       const botToken = process.env.BOT_TOKEN;
 
       if (!botToken) {
@@ -13,21 +13,11 @@ export class AuthController {
       }
 
       // Xác thực chữ ký Telegram
-      const isValid = verifyTelegramWebAppData(initData, botToken);
+      const isValid = verifyTelegramWebAppData(telegramUser, botToken);
       
       if (!isValid) {
         return res.status(401).json({ success: false, message: 'Invalid Telegram Data' });
       }
-
-      // Lấy thông tin user từ initData (có chứa trường user dưới dạng JSON)
-      const urlParams = new URLSearchParams(initData);
-      const userStr = urlParams.get('user');
-      
-      if (!userStr) {
-        return res.status(400).json({ success: false, message: 'Missing user data' });
-      }
-
-      const telegramUser = JSON.parse(userStr);
       
       // Tạo hoặc tìm User trong Database
       const dbUser = await userService.getOrCreateUser(

@@ -2,26 +2,25 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 
 // Hàm xác thực dữ liệu từ Telegram Login Widget
-export function verifyTelegramWebAppData(telegramInitData: string, botToken: string): boolean {
-  // Parsing the string "query_id=...&user=..."
-  const urlParams = new URLSearchParams(telegramInitData);
-  const hash = urlParams.get('hash');
+export function verifyTelegramWebAppData(telegramUser: any, botToken: string): boolean {
+  if (!telegramUser || !telegramUser.hash) return false;
   
-  if (!hash) return false;
-  
-  urlParams.delete('hash');
-  
+  const hash = telegramUser.hash;
   const dataCheckArr: string[] = [];
-  urlParams.forEach((value, key) => {
-    dataCheckArr.push(`${key}=${value}`);
-  });
+  
+  // Trích xuất tất cả key ngoại trừ hash
+  for (const key in telegramUser) {
+    if (key !== 'hash' && telegramUser[key] !== undefined && telegramUser[key] !== null) {
+      dataCheckArr.push(`${key}=${telegramUser[key]}`);
+    }
+  }
   
   // Sắp xếp theo thứ tự alpha-b
   dataCheckArr.sort();
   const dataCheckString = dataCheckArr.join('\n');
   
-  // Tạo secret key từ botToken theo chuẩn của Telegram
-  const secretKey = crypto.createHmac('sha256', 'WebAppData').update(botToken).digest();
+  // Login Widget sử dụng SHA256(botToken) làm secret key (Khác với Mini App dùng HMAC)
+  const secretKey = crypto.createHash('sha256').update(botToken).digest();
   
   // Sinh mã hash từ chuỗi dữ liệu
   const generatedHash = crypto.createHmac('sha256', secretKey).update(dataCheckString).digest('hex');

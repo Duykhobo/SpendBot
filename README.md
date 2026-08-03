@@ -1,58 +1,73 @@
-# 🤖 SpenseBot - Hệ thống Bot Telegram Quản lý Chi tiêu & Nhắc nhở
+# 🤖 SpenseBot - Hệ thống Bot Telegram Quản lý Chi tiêu & Web Dashboard
 
-![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-404D59?style=flat)
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat&logo=mongodb&logoColor=white)
-![Telegraf](https://img.shields.io/badge/Telegraf-2CA5E0?style=flat&logo=telegram&logoColor=white)
+<div align="center">
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge" alt="Express.js" />
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
+</div>
 
-SpenseBot là một hệ thống quản lý tài chính cá nhân và đặt lịch nhắc nhở toàn diện, được tích hợp trực tiếp qua Telegram Bot kết hợp với một Web Dashboard (đang phát triển). Dự án được thiết kế theo chuẩn mô hình **MVC (Model-View-Controller)** và nguyên tắc **SOLID**, đem lại hiệu năng cao và dễ dàng mở rộng.
+<br/>
+
+SpenseBot là một hệ thống quản lý tài chính cá nhân và đặt lịch nhắc nhở toàn diện, kết hợp sự tiện lợi của **Telegram Bot** (nhập liệu thần tốc) với một **Web Dashboard Glassmorphism** (trực quan hoá dữ liệu). Dự án được thiết kế theo chuẩn mô hình **MVC**, nguyên tắc **SOLID**, bảo mật JWT cao cấp và kiến trúc phân tách Frontend/Backend hiện đại.
 
 ---
 
-## 📸 Demo & Giao diện
+## 📸 Hình ảnh Demo
 
-*(Chèn ảnh hoặc GIF thực tế ở đây sau khi hoàn thiện UI Web)*
-> 💡 **Ảnh 1**: Demo Bot Telegram xử lý mượt mà số tiền viết tắt (`50k`, `2 lít`) với Inline Keyboard (Nút bấm)
-> 💡 **Ảnh 2**: Giao diện Web Dashboard (Glassmorphism) trực quan thống kê chi tiêu.
+*(Hãy thay thế ảnh bằng file thực tế tải lên repo `docs/`)*
+
+![Dashboard Demo](./docs/dashboard-demo.png)
+> 💡 **Giao diện Web Dashboard (Glassmorphism)**: Tích hợp Đăng nhập 1 chạm bằng Telegram, thống kê biểu đồ chi tiêu (Recharts) với giao diện kính mờ (Glassmorphism) chuẩn Dark Mode cực kỳ sang trọng.
+
+![Bot Demo](./docs/bot-demo.png)
+> 💡 **Bot Telegram**: Xử lý mượt mà số tiền viết tắt (`50k`, `2 lít`) với Inline Keyboard (Nút bấm Undo/Fail-Fast) đảm bảo tính toàn vẹn dữ liệu.
 
 ---
 
 ## ✨ Tính năng nổi bật
 
-### 1. Telegram Bot (Input Thông Minh)
-- **Parse số tiền tự nhiên (Shorthand Numbers)**: Hỗ trợ người dùng nhập nhanh `50k`, `50 củ`, `2 lít`... thay vì phải gõ chuỗi số 0 dài dòng.
-- **Fail-Fast & Undo**: Bắt lỗi cú pháp ngay lập tức và có hệ thống lưu session (timeout 5 phút) để người dùng chọn danh mục (bằng các Nút bấm tiện lợi) nhằm tránh sai lệch dữ liệu.
+### 1. Telegram Bot (Đầu vào thông minh)
+- **Parse số tiền tự nhiên (Shorthand Numbers)**: Hỗ trợ người dùng nhập nhanh `50k`, `50 củ`, `2 lít`...
+- **Fail-Fast & Undo**: Bắt lỗi cú pháp ngay lập tức và có hệ thống lưu session (timeout 5 phút) để người dùng có thể thao tác lại bằng Nút bấm tiện lợi.
 - **Tính năng nhắc nhở (Cron Jobs)**: Đặt nhắc nhở theo phút, bot sẽ chủ động nhắn tin khi đến hạn.
 
-### 2. Backend & Authentication (API)
-- **Kiến trúc MVC**: Phân tách rõ ràng giữa `Controllers`, `Services`, `Models` và `Routes`.
-- **Bảo mật chuẩn Doanh nghiệp**: Tích hợp thuật toán xác thực (HMAC-SHA256) xác minh dữ liệu từ **Telegram Login Widget**. Đóng gói thành **JWT (JSON Web Token)** để bảo mật các API queries.
-- **Data Isolation**: Quản lý `User` chặt chẽ, các Expense và Reminder được link với người dùng qua hệ quản trị dữ liệu `ObjectId` của MongoDB.
+### 2. Web Dashboard (Giao diện nghìn sao)
+- **Thiết kế Glassmorphism**: Sử dụng hoàn toàn Vanilla CSS và CSS Variables để tạo hiệu ứng kính mờ (backdrop-filter) sắc nét, tối ưu hiệu năng.
+- **Biểu đồ trực quan**: Sử dụng thư viện Recharts để thống kê phân bổ danh mục chi tiêu.
+- **Quản lý State toàn cục**: Ứng dụng Zustand siêu nhẹ thay thế Redux để quản lý User Token.
 
-### 3. Web Dashboard (Sắp ra mắt - Phase 2)
-- Theo dõi biểu đồ chi tiêu (Recharts).
-- Đăng nhập 1 chạm với Telegram Login.
-- Giao diện Glassmorphism hiện đại và sang trọng.
+### 3. Backend & Authentication (API)
+- **Xác thực Telegram Widget chuẩn xác**: Triển khai mã hóa SHA256 để verify chữ ký số từ Telegram Widget, cấp phát JWT cho API an toàn.
+- **Axios Interceptors**: Tự động đính kèm Token ở mọi Request từ Frontend xuống Backend.
 
 ---
 
-## 📂 Cấu trúc Thư mục (Architecture)
-Dự án được tổ chức rõ ràng theo chuẩn mô hình MVC để dễ dàng phân chia Logic, Data và Router.
+## 📂 Cấu trúc Thư mục (Monorepo-style)
 
 ```text
-📦 backend
- ┣ 📂 src
- ┃ ┣ 📂 bot            # Bot Handlers, Middlewares
- ┃ ┣ 📂 config         # Kết nối DB, Cấu hình môi trường
- ┃ ┣ 📂 controllers    # Xử lý Logic HTTP và Bot
- ┃ ┣ 📂 models         # Mongoose Schemas (User, Expense, Reminder)
- ┃ ┣ 📂 routes         # Express API Routes
- ┃ ┣ 📂 services       # Bussiness Logic thao tác trực tiếp với Database
- ┃ ┣ 📂 utils          # Utilities (Number Parser, Auth JWT)
- ┃ ┣ 📜 cron.ts        # Setup Node-cron jobs
- ┃ ┗ 📜 index.ts       # Entry point cho Server
- ┗ 📜 .env.example     # Template biến môi trường
+📦 SpendBot
+ ┣ 📂 backend            # API Server & Bot (Node.js, Express, Mongoose)
+ ┃ ┣ 📂 src
+ ┃ ┃ ┣ 📂 bot            # Bot Handlers, Middlewares
+ ┃ ┃ ┣ 📂 controllers    # Xử lý Logic HTTP và Bot
+ ┃ ┃ ┣ 📂 models         # Mongoose Schemas (User, Expense, Reminder)
+ ┃ ┃ ┣ 📂 routes         # Express API Routes
+ ┃ ┃ ┣ 📂 services       # Bussiness Logic (Database)
+ ┃ ┃ ┗ 📜 index.ts       # Entry point cho Backend
+ ┃ ┗ 📜 .env.example
+ ┃
+ ┗ 📂 frontend           # Web Dashboard (React, Vite)
+   ┣ 📂 src
+   ┃ ┣ 📂 components     # Reusable UI (Header, ProtectedRoute...)
+   ┃ ┣ 📂 pages          # Login, Dashboard views
+   ┃ ┣ 📂 services       # Axios API Config & Interceptors
+   ┃ ┣ 📂 store          # Zustand Global State
+   ┃ ┣ 📜 App.tsx        # React Router Setup
+   ┃ ┗ 📜 index.css      # Design System (Glassmorphism Variables)
+   ┗ 📜 vite.config.ts   # Cấu hình Proxy gọi API
 ```
 
 ---
@@ -60,59 +75,49 @@ Dự án được tổ chức rõ ràng theo chuẩn mô hình MVC để dễ d�
 ## 🚀 Cài đặt & Chạy cục bộ (Local Development)
 
 ### Yêu cầu hệ thống
-- Node.js (v16 trở lên)
-- MongoDB (Sử dụng MongoDB Atlas hoặc Local)
+- Node.js (v18 trở lên)
+- MongoDB Atlas (hoặc Local)
 - 1 Bot Telegram (Tạo qua [@BotFather](https://t.me/BotFather))
 
 ### Các bước cài đặt
 
-**1. Clone dự án và cài đặt dependencies**
+**1. Khởi chạy Backend**
 ```bash
-git clone https://github.com/Duykhobo/SpendBot.git
-cd SpendBot/backend
+cd backend
 npm install
-```
-
-**2. Cấu hình biến môi trường**
-Copy file mẫu và đổi tên thành `.env`:
-```bash
 cp .env.example .env
-```
-Mở file `.env` và điền các thông tin của bạn (BOT_TOKEN, MONGODB_URI, JWT_SECRET).
-
-**3. Chạy Server ở chế độ Development**
-```bash
+# Chỉnh sửa file .env với BOT_TOKEN và MONGODB_URI của bạn
 npm run dev
 ```
-Server Express sẽ lắng nghe tại `http://localhost:3000` và Bot Telegram sẽ tự động khởi chạy, lắng nghe các lệnh từ người dùng.
 
----
-
-## 🚢 Triển khai (Deployment)
-Dự án đã được module hoá hoàn chỉnh để sẵn sàng đưa lên môi trường Production. 
-
-**Tùy chọn 1: Render hoặc Vercel (PaaS)**
-- Đẩy code lên GitHub.
-- Liên kết kho lưu trữ với **Render Web Service** (hoặc nền tảng tương đương).
-- Thiết lập Root Directory là `backend`, lệnh Build: `npm install && npx tsc`, lệnh Start: `node dist/index.js`.
-- Cấu hình Environment Variables theo nội dung file `.env`.
-
-**Tùy chọn 2: VPS (Ubuntu) bằng PM2**
+**2. Khởi chạy Frontend**
+Mở một cửa sổ Terminal khác:
 ```bash
-# Sau khi build source code sang Javascript
-npm install -g pm2
-pm2 start dist/index.js --name "SpenseBot"
-pm2 save
+cd frontend
+npm install
+npm run dev
 ```
+Truy cập `http://localhost:5173` (hoặc cấu hình Ngrok/Pinggy nếu muốn test Telegram Login Widget trên điện thoại).
 
 ---
 
-## 📝 Danh sách lệnh Bot Telegram
-- `/spend <số tiền> [mô tả]` - Ghi chép chi tiêu (vd: `/spend 50k Ăn sáng`)
-- `/remind <số phút> <nội dung>` - Đặt lời nhắc nhở
-- `/report` - Báo cáo tổng chi tiêu
-- `/list_reminders` - Xem danh sách nhắc nhở chưa hoàn thành
+## 🚢 Hướng dẫn Triển khai (Deployment)
+
+Dự án được thiết kế để dễ dàng deploy lên các nền tảng đám mây:
+
+### 1. Triển khai Backend (Render, Vercel hoặc VPS)
+- Cấu hình Environment Variables: `BOT_TOKEN`, `MONGODB_URI`, `JWT_SECRET`.
+- Lệnh Build: `npm install && npx tsc`
+- Lệnh Start: `node dist/index.js`
+- Đảm bảo cấu hình CORS trong Express cho phép tên miền Frontend truy cập.
+
+### 2. Triển khai Frontend (Vercel, Netlify)
+- Đẩy thư mục `frontend` lên Vercel.
+- Cấu hình Build Command: `npm run build`
+- Output Directory: `dist`
+- **Quan trọng:** Bạn cần đổi URL `/api` trong `src/services/api.ts` trỏ thẳng tới tên miền thật của Backend, hoặc cấu hình Vercel Rewrites (`vercel.json`) để proxy request `/api` sang Backend domain.
+- Lên `@BotFather` gõ `/setdomain` và nhập tên miền Vercel của bạn để Widget Đăng nhập hoạt động.
 
 ---
 
-> Được xây dựng với ❤️ nhằm mang đến trải nghiệm quản lý tài chính cá nhân mượt mà nhất ngay trên nền tảng Telegram.
+> Được xây dựng với ❤️ nhằm mang đến trải nghiệm quản lý tài chính cá nhân mượt mà nhất.
